@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="50dp"
+    tools:context=".Calculadora">
+
+    <EditText
+        android:id="@+id/txtInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textShortMessage" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnAdicionar"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btnAdicionar" />
+
+            <Button
+                android:id="@+id/btnSustraer"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btnSustraer" />
+
+            <Button
+                android:id="@+id/btnMultiplicar"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btnMultiplicar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnDividir"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/btnDividir" />
+
+            <Button
+                android:id="@+id/btnPotencia"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btnPotencia" />
+
+            <Button
+                android:id="@+id/btnPotenciaPorDos"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btnPotenciaPorDos" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnRealizarOperacion"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/btnRealizarOperacion" />
+
+</LinearLayout>
