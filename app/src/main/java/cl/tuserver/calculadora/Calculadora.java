@@ -19,6 +19,7 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
     private EditText txtInput;
     private Button btnRealizarOperacion;
     private Button btnSuma, btnResta, btnMulti, btnDivi, btnPow, btnPowPorDos;
+
     private static final HashMap<Integer, Double> historial = new HashMap<>();
 
     @Override
@@ -34,30 +35,29 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
         btnPowPorDos = findViewById(R.id.btnPotenciaPorDos);
         btnRealizarOperacion = findViewById(R.id.btnRealizarOperacion);
         btnRealizarOperacion.setOnClickListener(v -> doOperacion(txtInput.getText().toString()));
-        btnSuma.setOnClickListener(v -> {
-            txtInput.setText(txtInput.getText().toString()+"+");
-            txtInput.setSelection(txtInput.getText().length());
-        });
-        btnResta.setOnClickListener(v -> {
-            txtInput.setText(txtInput.getText().toString()+"-");
-            txtInput.setSelection(txtInput.getText().length());
-        });
-        btnMulti.setOnClickListener(v -> {
-            txtInput.setText(txtInput.getText().toString()+"*");
-            txtInput.setSelection(txtInput.getText().length());
-        });
-        btnDivi.setOnClickListener(v -> {
-            txtInput.setText(txtInput.getText().toString()+"/");
-            txtInput.setSelection(txtInput.getText().length());
-        });
-        btnPow.setOnClickListener(v -> {
-            txtInput.setText(txtInput.getText().toString()+"^");
-            txtInput.setSelection(txtInput.getText().length());
-        });
-        btnPowPorDos.setOnClickListener(v -> {
-            txtInput.setText(txtInput.getText().toString()+"^2");
-            txtInput.setSelection(txtInput.getText().length());
-        });
+        btnSuma.setOnClickListener(v ->
+            accionBotonAritmetica("+")
+        );
+        btnResta.setOnClickListener(v ->
+            accionBotonAritmetica("-")
+        );
+        btnMulti.setOnClickListener(v ->
+            accionBotonAritmetica("*")
+        );
+        btnDivi.setOnClickListener(v ->
+            accionBotonAritmetica("/")
+        );
+        btnPow.setOnClickListener(v ->
+            accionBotonAritmetica("^")
+        );
+        btnPowPorDos.setOnClickListener(v ->
+            accionBotonAritmetica("^2")
+        );
+    }
+
+    private void accionBotonAritmetica(String input){
+        txtInput.setText(txtInput.getText().toString()+input);
+        txtInput.setSelection(txtInput.getText().length());
     }
 
     @Override
@@ -95,12 +95,6 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private Matcher extraerOperacion(String input){
-        Pattern patron = Pattern.compile("\\(([^\\)]+)\\)");
-        Matcher match = patron.matcher(input);
-        return match;
-    }
-
     private void doOperacion(String input){
         try {
             double resultado = .0;
@@ -108,13 +102,7 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
                 doToast("Resultado: " + historial.get(input.hashCode()));
                 return;
             }
-            Matcher m = extraerOperacion(input);
-            while(m.find()){
-                String op = m.group();
-                op = op.replaceAll("\\(", "");
-                op = op.replaceAll("\\)", "");
-                System.out.println(op);
-            }
+
             historial.put(input.hashCode(), resultado);
             doToast("Resultado: " + resultado);
         }
