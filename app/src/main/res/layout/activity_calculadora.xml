@@ -51,16 +51,16 @@
                 android:text="@string/btnUno" />
 
             <Button
-                android:id="@+id/btnDos"
+                android:id="@+id/btnCuatro"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnDos" />
+                android:text="@string/btnCuatro" />
 
             <Button
-                android:id="@+id/btnTres"
+                android:id="@+id/btnSiete"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnTres" />
+                android:text="@string/btnSiete" />
 
         </LinearLayout>
 
@@ -70,10 +70,10 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnCuatro"
+                android:id="@+id/btnDos"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnCuatro" />
+                android:text="@string/btnDos" />
 
             <Button
                 android:id="@+id/btnCinco"
@@ -82,10 +82,11 @@
                 android:text="@string/btnCinco" />
 
             <Button
-                android:id="@+id/btnSeis"
+                android:id="@+id/btnOcho"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSeis" />
+                android:text="@string/btnOcho" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -94,16 +95,16 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btnSiete"
+                android:id="@+id/btnTres"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnSiete" />
+                android:text="@string/btnTres" />
 
             <Button
-                android:id="@+id/btnOcho"
+                android:id="@+id/btnSeis"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btnOcho" />
+                android:text="@string/btnSeis" />
 
             <Button
                 android:id="@+id/btnNueve"
