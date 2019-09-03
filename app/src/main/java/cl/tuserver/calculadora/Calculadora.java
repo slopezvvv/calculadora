@@ -19,7 +19,7 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
     private EditText txtInput;
     private Button btnRealizarOperacion;
     private Button btnSuma, btnResta, btnMulti, btnDivi, btnPow, btnPowPorDos;
-    private HashMap<Integer, Double> historial;
+    private static final HashMap<Integer, Double> historial = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
