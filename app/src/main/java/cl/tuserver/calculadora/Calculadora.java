@@ -7,12 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 
 public class Calculadora extends AppCompatActivity implements InterfaceCalculadora{
@@ -21,7 +19,7 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
     private EditText txtInput;
     private Button btnRealizarOperacion;
     private Button btnSuma, btnResta, btnMulti, btnDivi, btnPow, btnPowPorDos;
-    private HashMap<Integer, String> historial;
+    private HashMap<Integer, Double> historial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +91,7 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
         return Math.pow(a, NUM_DOS);
     }
 
-    private void errorToast(String msg){
+    private void doToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -106,7 +104,10 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
     private void doOperacion(String input){
         try {
             double resultado = .0;
-
+            if(historial.containsKey(input.hashCode())){
+                doToast("Resultado: " + historial.get(input.hashCode()));
+                return;
+            }
             Matcher m = extraerOperacion(input);
             while(m.find()){
                 String op = m.group();
@@ -114,12 +115,11 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
                 op = op.replaceAll("\\)", "");
                 System.out.println(op);
             }
-
-            Toast.makeText(this, "Resultado: " + resultado, Toast.LENGTH_SHORT).show();
-
+            historial.put(input.hashCode(), resultado);
+            doToast("Resultado: " + resultado);
         }
         catch (IndexOutOfBoundsException ex){
-            errorToast("La operacion no es valida");
+            doToast("La operacion no es valida");
             txtInput.setText("");
         }
     }
