@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="50dp"
-    tools:context=".Calculadora">
+    tools:context=".ActivityCalculadora">
 
     <EditText
         android:id="@+id/txtInput"

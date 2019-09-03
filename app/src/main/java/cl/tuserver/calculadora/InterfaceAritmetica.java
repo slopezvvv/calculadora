@@ -1,6 +1,6 @@
 package cl.tuserver.calculadora;
 
-public interface InterfaceCalculadora {
+public interface InterfaceAritmetica {
     double adicion(double a, double b);
     double sustraccion(double a, double b);
     double multiplicacion(double a, double b);

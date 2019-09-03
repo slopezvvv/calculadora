@@ -8,14 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
-
-public class Calculadora extends AppCompatActivity implements InterfaceCalculadora{
-
-    private static final int NUM_DOS = 2;
+public class ActivityCalculadora extends AppCompatActivity {
     private EditText txtInput;
     private Button btnRealizarOperacion;
     private Button btnSuma, btnResta, btnMulti, btnDivi, btnPow, btnPowPorDos;
@@ -36,59 +31,28 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
         btnRealizarOperacion = findViewById(R.id.btnRealizarOperacion);
         btnRealizarOperacion.setOnClickListener(v -> doOperacion(txtInput.getText().toString()));
         btnSuma.setOnClickListener(v ->
-            accionBotonAritmetica("+")
+            accionBotonAritmetica(OperadoresAritmeticos.SUMA.toString())
         );
         btnResta.setOnClickListener(v ->
-            accionBotonAritmetica("-")
+            accionBotonAritmetica(OperadoresAritmeticos.RESTA.toString())
         );
         btnMulti.setOnClickListener(v ->
-            accionBotonAritmetica("*")
+            accionBotonAritmetica(OperadoresAritmeticos.MULTI.toString())
         );
         btnDivi.setOnClickListener(v ->
-            accionBotonAritmetica("/")
+            accionBotonAritmetica(OperadoresAritmeticos.DIVI.toString())
         );
         btnPow.setOnClickListener(v ->
-            accionBotonAritmetica("^")
+            accionBotonAritmetica(OperadoresAritmeticos.POW.toString())
         );
         btnPowPorDos.setOnClickListener(v ->
-            accionBotonAritmetica("^2")
+            accionBotonAritmetica(OperadoresAritmeticos.POW_2.toString())
         );
     }
 
     private void accionBotonAritmetica(String input){
         txtInput.setText(txtInput.getText().toString()+input);
         txtInput.setSelection(txtInput.getText().length());
-    }
-
-    @Override
-    public double adicion(double a, double b){
-        return a + b;
-    }
-
-    @Override
-    public double sustraccion(double a, double b){
-        return a - b;
-    }
-
-    @Override
-    public double multiplicacion(double a, double b){
-        return a * b;
-    }
-
-    @Override
-    public double divicion(double a, double b){
-        if(b <= 0) throw new NumberFormatException("La division por cero no es posible");
-        return a / b;
-    }
-
-    @Override
-    public double potencia(double a, double b){
-        return Math.pow(a, b);
-    }
-
-    @Override
-    public double potenciaPorDos(double a){
-        return Math.pow(a, NUM_DOS);
     }
 
     private void doToast(String msg){
@@ -102,11 +66,12 @@ public class Calculadora extends AppCompatActivity implements InterfaceCalculado
                 doToast("Resultado: " + historial.get(input.hashCode()));
                 return;
             }
+            InterfaceAritmetica aritmetica = new Aritmetica();
 
             historial.put(input.hashCode(), resultado);
             doToast("Resultado: " + resultado);
         }
-        catch (IndexOutOfBoundsException ex){
+        catch (IndexOutOfBoundsException | NumberFormatException ex){
             doToast("La operacion no es valida");
             txtInput.setText("");
         }

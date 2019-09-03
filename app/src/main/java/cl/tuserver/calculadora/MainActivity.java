@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        startActivity(new Intent(MainActivity.this, Calculadora.class));
+        startActivity(new Intent(MainActivity.this, ActivityCalculadora.class));
     }
 
     public static final Usuario getSesion(){

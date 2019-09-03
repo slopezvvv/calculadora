@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("cl.tuserver.Calculadora", appContext.getPackageName());
+        assertEquals("cl.tuserver.ActivityCalculadora", appContext.getPackageName());
     }
 }
