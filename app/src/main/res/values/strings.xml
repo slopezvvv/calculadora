@@ -6,8 +6,8 @@
     <string name="btnDividir">/</string>
     <string name="btnPotencia">^</string>
     <string name="btnPotenciaPorDos">x^2</string>
-    <string name="msgHuboUnProblema">La operacion no es valida</string>
     <string name="btnLimpiar">CE</string>
+    <string name="btnResetear">AC</string>
     <string name="btnUno">1</string>
     <string name="btnDos">2</string>
     <string name="btnTres">3</string>

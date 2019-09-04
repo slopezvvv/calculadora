@@ -19,6 +19,7 @@ public class ActivityCalculadora extends AppCompatActivity {
 
     // botones de control
     private Button btnLimpiar;
+    private Button btnResetear;
 
     // Operaciones aritmeticas botones
     private Button btnSuma, btnResta, btnMulti,
@@ -65,14 +66,27 @@ public class ActivityCalculadora extends AppCompatActivity {
         btnCero = findViewById(R.id.btnCero);
 
         btnLimpiar = findViewById(R.id.btnLimpiar);
-        btnLimpiar.setOnClickListener(v -> {
-            if(tvInput.getText().toString().length() <= 1)
-                tvInput.setText("0");
-            else
-                tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().toString().length()-1));
-        });
+        btnResetear = findViewById(R.id.btnResetear);
+
+        controlListeners();
         aritmeticaListeners();
         numpadListeners();
+    }
+
+    private void clear(){
+        tvResultado.setText("0");
+        tvInput.setText("");
+        ultimoResultado = .0;
+    }
+
+    private void controlListeners(){
+        btnLimpiar.setOnClickListener(v -> {
+            if(tvInput.getText().toString().length() <= 1)
+                tvInput.setText("");
+            else
+                tvInput.setText(tvInput.getText().toString().substring(tvInput.getText().toString().length()-1));
+        });
+        btnResetear.setOnClickListener(v -> clear());
     }
 
     private void aritmeticaListeners(){
@@ -174,7 +188,13 @@ public class ActivityCalculadora extends AppCompatActivity {
             }
             historial.put(input.hashCode(), resultado);
             ultimoResultado = resultado;
-            tvResultado.setText(String.valueOf(resultado));
+            String output = String.valueOf(resultado);
+            // Compruebo si el Double es un numero entero, eliminando el cero,
+            // sino se muestra como numero flotante, es decir, sin cambios.
+            if((resultado % 1) == 0)
+                tvResultado.setText(output.substring(0, output.length()-2));
+            else
+                tvResultado.setText(output);
         }
         catch (IndexOutOfBoundsException | NumberFormatException ex){
             doToast("La operacion no es valida");
