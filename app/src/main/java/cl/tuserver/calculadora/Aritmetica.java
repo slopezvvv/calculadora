@@ -20,7 +20,7 @@ public class Aritmetica implements InterfaceAritmetica{
 
     @Override
     public double divicion(double a, double b){
-        if(b <= 0) throw new NumberFormatException("La division por cero no es posible");
+        if(b <= 0) throw new NumberFormatException();
         return a / b;
     }
 
