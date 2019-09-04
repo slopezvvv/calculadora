@@ -2,15 +2,25 @@ package cl.tuserver.calculadora;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.util.HashMap;
 
 
 public class ActivityCalculadora extends AppCompatActivity {
+
+    // Video Animacion
+    private VideoView videoAnim;
+    private MediaController mediaController;
+
     // Vista del resultado
     private TextView tvResultado;
 
@@ -42,6 +52,23 @@ public class ActivityCalculadora extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculadora);
+
+        // Video Animacion
+        videoAnim = findViewById(R.id.videoAnim);
+        // Looping Animacion
+        videoAnim.setOnPreparedListener(mp -> mp.setLooping(true));
+
+        mediaController = new MediaController(this);
+        mediaController.setVisibility(View.GONE);
+        videoAnim.setMediaController(mediaController);
+
+        String pathAnim = "android.resource://"+getPackageName()+"/raw/anim";
+        Uri uri = Uri.parse(pathAnim);
+
+        videoAnim.setVideoURI(uri);
+        videoAnim.start();
+        // END Video Animacion
+
         tvResultado = findViewById(R.id.tvResultado);
         tvInput = findViewById(R.id.tvInput);
 

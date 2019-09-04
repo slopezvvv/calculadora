@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBlack"
     tools:context=".ActivityCalculadora">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="50dp">
+        <VideoView
+            android:id="@+id/videoAnim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="64dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="50dp"
             android:orientation="vertical">
 
             <TextView
@@ -23,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/btnCero"
                 android:textAlignment="textEnd"
+                android:textColor="@color/colorWhite"
                 android:textSize="36sp" />
 
             <TextView
@@ -30,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textColor="@color/colorWhite"
                 android:textAlignment="textEnd"
                 android:textSize="24sp" />
 
@@ -190,7 +195,4 @@
             </LinearLayout>
 
         </LinearLayout>
-
-    </FrameLayout>
-
-</LinearLayout>
+</FrameLayout>
