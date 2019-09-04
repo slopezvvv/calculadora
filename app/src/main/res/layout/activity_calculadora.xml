@@ -24,8 +24,10 @@
                 android:id="@+id/tvResultado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="@string/btnCero"
                 android:textAlignment="textEnd"
+                android:background="@color/colorOrange"
                 android:textColor="@color/colorWhite"
                 android:textSize="36sp" />
 
@@ -33,7 +35,9 @@
                 android:id="@+id/tvInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:ems="10"
+                android:background="@color/colorOrange"
                 android:textColor="@color/colorWhite"
                 android:textAlignment="textEnd"
                 android:textSize="24sp" />
