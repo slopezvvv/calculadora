@@ -8,19 +8,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
-import java.util.StringTokenizer;
 
 
 public class ActivityCalculadora extends AppCompatActivity {
+    // Vista del resultado
     private TextView tvResultado;
-    private TextView tvInput;
-    private Button btnRealizarOperacion;
-    private Button btnSuma, btnResta, btnMulti, btnDivi, btnPow, btnPowPorDos;
 
+    // Input de numeros recibidos
+    private TextView tvInput;
+
+    // botones de control
+    private Button btnLimpiar;
+
+    // Operaciones aritmeticas botones
+    private Button btnSuma, btnResta, btnMulti,
+                   btnDivi, btnPow, btnPowPorDos;
+
+    // Numpad botones
+    private Button btnUno, btnDos, btnTres, btnCuatro, btnCinco,
+                   btnSeis, btnSiete, btnOcho, btnNueve, btnCero;
+
+    // Historial de operaciones
     private static final HashMap<Integer, Double> historial = new HashMap<>();
-    OperadoresAritmeticos ultimaOperacion = null;
-    double ultimoResultado = .0;
-    boolean isClick = false;
+
+    // Ultima operacion realizada
+    //private OperadoresAritmeticos ultimaOperacion = OperadoresAritmeticos.NONE;
+
+    // Ultimo resultado obtenido
+    private double ultimoResultado = .0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,69 +43,116 @@ public class ActivityCalculadora extends AppCompatActivity {
         setContentView(R.layout.activity_calculadora);
         tvResultado = findViewById(R.id.tvResultado);
         tvInput = findViewById(R.id.tvInput);
+
+        // operaciones aritmeticas, obtencion por ID
         btnSuma = findViewById(R.id.btnAdicionar);
         btnResta = findViewById(R.id.btnSustraer);
         btnMulti = findViewById(R.id.btnMultiplicar);
         btnDivi = findViewById(R.id.btnDividir);
         btnPow = findViewById(R.id.btnPotencia);
         btnPowPorDos = findViewById(R.id.btnPotenciaPorDos);
-        btnRealizarOperacion = findViewById(R.id.btnRealizarOperacion);
-        btnRealizarOperacion.setOnClickListener(v -> accionBotonAritmetica(ultimaOperacion));
 
+        // numpad, obtencion por ID
+        btnUno = findViewById(R.id.btnUno);
+        btnDos = findViewById(R.id.btnDos);
+        btnTres = findViewById(R.id.btnTres);
+        btnCuatro = findViewById(R.id.btnCuatro);
+        btnCinco = findViewById(R.id.btnCinco);
+        btnSeis = findViewById(R.id.btnSeis);
+        btnSiete = findViewById(R.id.btnSiete);
+        btnOcho = findViewById(R.id.btnOcho);
+        btnNueve = findViewById(R.id.btnNueve);
+        btnCero = findViewById(R.id.btnCero);
+
+        btnLimpiar = findViewById(R.id.btnLimpiar);
+        btnLimpiar.setOnClickListener(v -> {
+            if(tvInput.getText().toString().length() <= 1)
+                tvInput.setText("0");
+            else
+                tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().toString().length()-1));
+        });
+        aritmeticaListeners();
+        numpadListeners();
+    }
+
+    private void aritmeticaListeners(){
         btnSuma.setOnClickListener(v ->
-            accionBotonAritmetica(OperadoresAritmeticos.SUMA)
+            doOperacion(OperadoresAritmeticos.SUMA)
         );
         btnResta.setOnClickListener(v ->
-            accionBotonAritmetica(OperadoresAritmeticos.RESTA)
+            doOperacion(OperadoresAritmeticos.RESTA)
         );
         btnMulti.setOnClickListener(v ->
-            accionBotonAritmetica(OperadoresAritmeticos.MULTI)
+            doOperacion(OperadoresAritmeticos.MULTI)
         );
         btnDivi.setOnClickListener(v ->
-            accionBotonAritmetica(OperadoresAritmeticos.DIVI)
+            doOperacion(OperadoresAritmeticos.DIVI)
         );
         btnPow.setOnClickListener(v ->
-            accionBotonAritmetica(OperadoresAritmeticos.POW)
+            doOperacion(OperadoresAritmeticos.POW)
         );
         btnPowPorDos.setOnClickListener(v ->
-            accionBotonAritmetica(OperadoresAritmeticos.POW_2)
+            doOperacion(OperadoresAritmeticos.POW_2)
         );
     }
 
-    private void accionBotonAritmetica(OperadoresAritmeticos op){
-        if(!isClick) {
-            tvInput.setText(tvInput.getText().toString() + op.toString());
-            //tvInput.setSelection(tvInput.getText().length());
-            ultimaOperacion = op;
-        }
-        else {
-            doOperacion(tvInput.getText().toString());
-        }
-        isClick = !isClick;
+    private void numpadListeners(){
+        btnUno.setOnClickListener(v ->
+            sacarCeroYPonerDigito("1")
+        );
+        btnDos.setOnClickListener(v ->
+            sacarCeroYPonerDigito("2")
+        );
+        btnTres.setOnClickListener(v ->
+            sacarCeroYPonerDigito("3")
+        );
+        btnCuatro.setOnClickListener(v ->
+            sacarCeroYPonerDigito("4")
+        );
+        btnCinco.setOnClickListener(v ->
+            sacarCeroYPonerDigito("5")
+        );
+        btnSeis.setOnClickListener(v ->
+            sacarCeroYPonerDigito("6")
+        );
+        btnSiete.setOnClickListener(v ->
+            sacarCeroYPonerDigito("7")
+        );
+        btnOcho.setOnClickListener(v ->
+            sacarCeroYPonerDigito("8")
+        );
+        btnNueve.setOnClickListener(v ->
+            sacarCeroYPonerDigito("9")
+        );
+        btnCero.setOnClickListener(v ->
+            sacarCeroYPonerDigito("0")
+        );
     }
 
-    private void doToast(String msg){
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    private void sacarCeroYPonerDigito(String num){
+        if(tvInput.getText().toString().length() == 1 && tvInput.getText().toString().charAt(0) == '0')
+            tvInput.setText("");
+        tvInput.setText(tvInput.getText().toString().concat(num));
     }
 
-    private void doOperacion(String input){
+    private void doOperacion(OperadoresAritmeticos op){
         try {
             double resultado = .0;
+            double[] valores = new double[2];
+
+            valores[0] = ultimoResultado;
+            valores[1] = Double.parseDouble(
+                tvInput.getText().toString().isEmpty() ?
+                String.valueOf(0) : tvInput.getText().toString()
+            );
+            String input = valores[0]+op.toString()+valores[1];
+
             if(historial.containsKey(input.hashCode())){
                 tvResultado.setText(String.valueOf(historial.get(input.hashCode())));
                 return;
             }
             InterfaceAritmetica aritmetica = new Aritmetica();
-            StringTokenizer filtrarVariables = new StringTokenizer(input, ultimaOperacion.toString());
-            double[] valores = new double[2];
-            if(ultimoResultado == .0) {
-                int i = 0;
-                while (filtrarVariables.hasMoreTokens()) {
-                    valores[i] = Double.parseDouble(filtrarVariables.nextToken());
-                    i++;
-                }
-            }
-            switch (ultimaOperacion){
+            switch (op){
                 case SUMA:
                     resultado = aritmetica.adicion(valores[0], valores[1]);
                     break;
@@ -118,5 +180,9 @@ public class ActivityCalculadora extends AppCompatActivity {
             doToast("La operacion no es valida");
         }
         tvInput.setText("");
+    }
+
+    private void doToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,7 +1,9 @@
 package cl.tuserver.calculadora;
 
 public enum OperadoresAritmeticos {
-    SUMA("+"), RESTA("-"), MULTI("*"), DIVI("/"), POW("^"), POW_2("^2");
+    SUMA("+"), RESTA("-"), MULTI("*"),
+    DIVI("/"), POW("^"), POW_2("^2"),
+    NONE(new String());
 
     private final String simbolo;
     OperadoresAritmeticos(String simbolo){
