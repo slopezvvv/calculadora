@@ -39,7 +39,7 @@ public class ActivityCalculadora extends AppCompatActivity {
                    btnSeis, btnSiete, btnOcho, btnNueve, btnCero;
 
     // Historial de operaciones
-    private static final HashMap<Integer, Double> historial = new HashMap<>();
+    private static final HashMap<Integer, String> historial = new HashMap<>();
 
     // Ultima operacion realizada
     //private OperadoresAritmeticos ultimaOperacion = OperadoresAritmeticos.NONE;
@@ -185,10 +185,14 @@ public class ActivityCalculadora extends AppCompatActivity {
                 tvInput.getText().toString().isEmpty() ?
                 String.valueOf(0) : tvInput.getText().toString()
             );
-            String input = valores[0]+op.toString()+valores[1];
+            // Si es elevado al cuadrado, entonces se ignora el segundo termino
+            String input = op != OperadoresAritmeticos.POW_2 ?
+                                valores[0]+op.toString()+valores[1] :
+                                valores[0]+op.toString();
 
             if(historial.containsKey(input.hashCode())){
-                tvResultado.setText(String.valueOf(historial.get(input.hashCode())));
+                tvResultado.setText(historial.get(input.hashCode()));
+                tvInput.setText("");
                 return;
             }
             InterfaceAritmetica aritmetica = new Aritmetica();
@@ -212,15 +216,17 @@ public class ActivityCalculadora extends AppCompatActivity {
                     resultado = aritmetica.potenciaPorDos(ultimoResultado);
                     break;
             }
-            historial.put(input.hashCode(), resultado);
+
             ultimoResultado = resultado;
             String output = String.valueOf(resultado);
             // Compruebo si el Double es un numero entero, eliminando el cero,
             // sino se muestra como numero flotante, es decir, sin cambios.
             if((resultado % 1) == 0)
-                tvResultado.setText(output.substring(0, output.length()-2));
-            else
-                tvResultado.setText(output);
+                output = output.substring(0, output.length()-2);
+
+            // Se muestra el resultado y se guarda en el historial
+            tvResultado.setText(output);
+            historial.put(input.hashCode(), output);
         }
         catch (IndexOutOfBoundsException | NumberFormatException ex){
             doToast("La operacion no es valida");
