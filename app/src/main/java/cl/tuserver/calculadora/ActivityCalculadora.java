@@ -44,6 +44,10 @@ public class ActivityCalculadora extends AppCompatActivity {
     // Ultimo resultado obtenido
     private double ultimoResultado = .0;
 
+    /**
+     * Metodo onCreate() de la clase Activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +88,9 @@ public class ActivityCalculadora extends AppCompatActivity {
         numpadListeners();
     }
 
+    /**
+     * Metodo que produce la animacion del fondo.
+     */
     private void animBackground(){
         // Looping Animacion
         videoAnim.setOnPreparedListener(mp -> mp.setLooping(true));
@@ -99,12 +106,14 @@ public class ActivityCalculadora extends AppCompatActivity {
         videoAnim.start();
     }
 
+    // Metodo que vuelve los valores de las variables usadas a su valor por defecto.
     private void clear(){
         tvResultado.setText("0");
         tvInput.setText("");
         ultimoResultado = .0;
     }
 
+    // Metodos que instancian los eventos de boton
     private void controlListeners(){
         btnLimpiar.setOnClickListener(v -> {
             if(tvInput.getText().toString().length() <= 1)
@@ -169,12 +178,24 @@ public class ActivityCalculadora extends AppCompatActivity {
         );
     }
 
+    /**
+     * Metodo que valida si hay un 0 como primer termino, se elimina dejando el text vacio,
+     * seguido de la instruccion que se encarga de concatenar el nuemo numero ingresado por un boton
+     * numerico. Recibe el numero como String.
+     * @param num
+     */
     private void sacarCeroYPonerDigito(String num){
         if(tvInput.getText().toString().length() == 1 && tvInput.getText().toString().charAt(0) == '0')
             tvInput.setText("");
         tvInput.setText(tvInput.getText().toString().concat(num));
     }
 
+    /**
+     * Realiza la operacion aritmetica que se le pase como parametro.
+     * Utiliza el resultado anterior y el valor en la caja de input para
+     * los terminos A y B que se usan en la operacion (SUMA, RESTA, MULTI, DIVI, etc).
+     * @param op
+     */
     private void doOperacion(OperadoresAritmeticos op){
         try {
             double resultado = .0;
@@ -234,6 +255,10 @@ public class ActivityCalculadora extends AppCompatActivity {
         tvInput.setText("");
     }
 
+    /**
+     * Imprime mensaje de alerta en pantalla al usuario.
+     * @param msg
+     */
     private void doToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
