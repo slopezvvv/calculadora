@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final Usuario sesion = new Usuario("Anonimo", new char[]{'1','2','3'});
+    protected static final Usuario sesion = new Usuario("Anonimo", new char[]{'1','2','3'});
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

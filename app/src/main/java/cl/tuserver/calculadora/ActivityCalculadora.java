@@ -39,7 +39,7 @@ public class ActivityCalculadora extends AppCompatActivity {
                    btnSeis, btnSiete, btnOcho, btnNueve, btnCero;
 
     // Historial de operaciones
-    private static final HashMap<Integer, String> historial = new HashMap<>();
+    //private static final HashMap<Integer, String> historial = new HashMap<>();
 
     // Ultima operacion realizada
     //private OperadoresAritmeticos ultimaOperacion = OperadoresAritmeticos.NONE;
@@ -190,8 +190,8 @@ public class ActivityCalculadora extends AppCompatActivity {
                                 valores[0]+op.toString()+valores[1] :
                                 valores[0]+op.toString();
 
-            if(historial.containsKey(input.hashCode())){
-                tvResultado.setText(historial.get(input.hashCode()));
+            if(MainActivity.sesion.historialContainsKey(input.hashCode())){
+                tvResultado.setText(MainActivity.sesion.getHistorial(input.hashCode()));
                 tvInput.setText("");
                 return;
             }
@@ -226,7 +226,7 @@ public class ActivityCalculadora extends AppCompatActivity {
 
             // Se muestra el resultado y se guarda en el historial
             tvResultado.setText(output);
-            historial.put(input.hashCode(), output);
+            MainActivity.sesion.addHistorial(input.hashCode(), output);
         }
         catch (IndexOutOfBoundsException | NumberFormatException ex){
             doToast("La operacion no es valida");
