@@ -99,10 +99,12 @@ public class ActivityCalculadora extends AppCompatActivity {
         mediaController.setVisibility(View.GONE);
         videoAnim.setMediaController(mediaController);
 
+        // Direccion del recurso audiovisual
         String pathAnim = "android.resource://"+getPackageName()+"/raw/anim";
         Uri uri = Uri.parse(pathAnim);
-
         videoAnim.setVideoURI(uri);
+
+        // Iniciar video
         videoAnim.start();
     }
 
