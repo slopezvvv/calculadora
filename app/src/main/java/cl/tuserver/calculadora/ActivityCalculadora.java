@@ -110,7 +110,7 @@ public class ActivityCalculadora extends AppCompatActivity {
             if(tvInput.getText().toString().length() <= 1)
                 tvInput.setText("");
             else
-                tvInput.setText(tvInput.getText().toString().substring(tvInput.getText().toString().length()-1));
+                tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().toString().length()-1));
         });
         btnResetear.setOnClickListener(v -> clear());
     }
