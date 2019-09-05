@@ -11,9 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import java.util.HashMap;
-
-
 public class ActivityCalculadora extends AppCompatActivity {
 
     // Video Animacion
@@ -54,19 +51,6 @@ public class ActivityCalculadora extends AppCompatActivity {
 
         // Video Animacion
         videoAnim = findViewById(R.id.videoAnim);
-        // Looping Animacion
-        videoAnim.setOnPreparedListener(mp -> mp.setLooping(true));
-
-        mediaController = new MediaController(this);
-        mediaController.setVisibility(View.GONE);
-        videoAnim.setMediaController(mediaController);
-
-        String pathAnim = "android.resource://"+getPackageName()+"/raw/anim";
-        Uri uri = Uri.parse(pathAnim);
-
-        videoAnim.setVideoURI(uri);
-        videoAnim.start();
-        // END Video Animacion
 
         tvResultado = findViewById(R.id.tvResultado);
         tvInput = findViewById(R.id.tvInput);
@@ -94,9 +78,25 @@ public class ActivityCalculadora extends AppCompatActivity {
         btnLimpiar = findViewById(R.id.btnLimpiar);
         btnResetear = findViewById(R.id.btnResetear);
 
+        animBackground();
         controlListeners();
         aritmeticaListeners();
         numpadListeners();
+    }
+
+    private void animBackground(){
+        // Looping Animacion
+        videoAnim.setOnPreparedListener(mp -> mp.setLooping(true));
+
+        mediaController = new MediaController(this);
+        mediaController.setVisibility(View.GONE);
+        videoAnim.setMediaController(mediaController);
+
+        String pathAnim = "android.resource://"+getPackageName()+"/raw/anim";
+        Uri uri = Uri.parse(pathAnim);
+
+        videoAnim.setVideoURI(uri);
+        videoAnim.start();
     }
 
     private void clear(){
