@@ -20,8 +20,4 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         startActivity(new Intent(MainActivity.this, ActivityCalculadora.class));
     }
-
-    public static final Usuario getSesion(){
-        return MainActivity.sesion;
-    }
 }
