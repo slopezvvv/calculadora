@@ -18,4 +18,9 @@
     <string name="btnOcho">8</string>
     <string name="btnNueve">9</string>
     <string name="btnCero">0</string>
+    <string name="animTexto">Esto iba a ser una calculadora,
+        pero termino complicandose a la 1:00 am debido a un ataque de creatividad..
+        un saludo a la seccion 1 Programacion Android 2019 segundo semestre, dedicado
+        a los mas talentosos de su generacion.
+    </string>
 </resources>

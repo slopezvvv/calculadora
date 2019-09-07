@@ -14,8 +14,12 @@ import android.widget.VideoView;
 public class ActivityCalculadora extends AppCompatActivity {
 
     // Video Animacion
-    private VideoView videoAnim;
+    private VideoView animVideo;
     private MediaController mediaController;
+
+    // Texto animacion
+    private TextView animTexto;
+    private String animNuevoTexto;
 
     // Vista del resultado
     private TextView tvResultado;
@@ -54,8 +58,13 @@ public class ActivityCalculadora extends AppCompatActivity {
         setContentView(R.layout.activity_calculadora);
 
         // Video Animacion
-        videoAnim = findViewById(R.id.videoAnim);
+        animVideo = findViewById(R.id.animVideo);
 
+        // Texto animacion
+        animTexto = findViewById(R.id.animTexto);
+        animNuevoTexto = getResources().getString(R.string.animTexto);
+
+        // Input / Output textViews
         tvResultado = findViewById(R.id.tvResultado);
         tvInput = findViewById(R.id.tvInput);
 
@@ -88,24 +97,56 @@ public class ActivityCalculadora extends AppCompatActivity {
         numpadListeners();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        animTexto();
+    }
+
+
+
     /**
      * Metodo que produce la animacion del fondo.
      */
     private void animBackground(){
         // Looping Animacion
-        videoAnim.setOnPreparedListener(mp -> mp.setLooping(true));
+        animVideo.setOnPreparedListener(mp -> mp.setLooping(true));
 
         mediaController = new MediaController(this);
         mediaController.setVisibility(View.GONE);
-        videoAnim.setMediaController(mediaController);
+        animVideo.setMediaController(mediaController);
 
         // Direccion del recurso audiovisual
         String pathAnim = "android.resource://"+getPackageName()+"/raw/anim";
         Uri uri = Uri.parse(pathAnim);
-        videoAnim.setVideoURI(uri);
+        animVideo.setVideoURI(uri);
 
         // Iniciar video
-        videoAnim.start();
+        animVideo.start();
+    }
+
+    private void animTexto(){
+        // Animacion del texto
+        new Thread(
+            () -> {
+                try {
+                    int x = 0;
+                    int z = 14;
+                    while(true){
+                        runOnUiThread(
+                            () -> {
+                                animTexto.setText(animNuevoTexto.substring(x, z));
+                                animNuevoTexto = animNuevoTexto.concat(String.valueOf(animNuevoTexto.charAt(0))).substring(1);
+                            }
+                        );
+                        Thread.sleep(100);
+                    }
+                }
+                catch(Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+        ).start();
     }
 
     // Metodo que vuelve los valores de las variables usadas a su valor por defecto.

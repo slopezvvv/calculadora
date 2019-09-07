@@ -9,7 +9,8 @@
         android:roundIcon="@drawable/ca"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityCalculadora"></activity>
+        <activity android:name=".ActivityCalculadora"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
