@@ -2,6 +2,7 @@ package cl.tuserver.calculadora;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -47,6 +48,12 @@ public class ActivityCalculadora extends AppCompatActivity {
 
     // Ultimo resultado obtenido
     private double ultimoResultado = .0;
+
+    // Esta sonando musica ?
+    private boolean isPlayingMusic = false;
+
+    // Media Player
+    private MediaPlayer mp;
 
     /**
      * Metodo onCreate() de la clase Activity.
@@ -95,6 +102,7 @@ public class ActivityCalculadora extends AppCompatActivity {
         controlListeners();
         aritmeticaListeners();
         numpadListeners();
+        if(!isPlayingMusic) playMusic();
     }
 
     @Override
@@ -102,7 +110,6 @@ public class ActivityCalculadora extends AppCompatActivity {
         super.onResume();
         animTexto();
     }
-
 
 
     /**
@@ -147,6 +154,13 @@ public class ActivityCalculadora extends AppCompatActivity {
                 }
             }
         ).start();
+    }
+
+    private void playMusic(){
+        mp = MediaPlayer.create(this, R.raw.bs);
+        mp.setLooping(true);
+        mp.start();
+        isPlayingMusic = true;
     }
 
     // Metodo que vuelve los valores de las variables usadas a su valor por defecto.
@@ -304,5 +318,20 @@ public class ActivityCalculadora extends AppCompatActivity {
      */
     private void doToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    // Impide que el boton atras se use
+    // sobrescribiendo el metodo y haciendo 'nada' en el
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mp.stop();
+        mp.release();
     }
 }
